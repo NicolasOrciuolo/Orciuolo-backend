@@ -1,11 +1,14 @@
+const fs = require('fs');
+
 class ProductManager {
-   constructor() {
+   constructor(path) {
       this.products = [];
+      this.path = path;
    }
 
    addProduct(title, description, price, thumbnail, code, stock) {
       if (!title || !description || !price || !thumbnail || !code || !stock) {
-         return console.log("Por favor, verifique la completitud de los campos ingresados")
+         throw new Error('Por favor, verifique la completitud de los campos ingresados')
       } else {
          let searchCode = this.products.find((products) => products.code === code);
 
@@ -19,6 +22,14 @@ class ProductManager {
                code,
                stock,
             })
+            if (this.products.length === 1){
+               fs.writeFileSync(this.path, "abc", 'utf-8');   //VER ACÁ
+            } else{
+               if (!fs.existsSync(path)) {
+                  return console.log('El archivo no se encuentra')
+               }
+               fs.appendFileSync(this.path, this.products, 'utf-8');
+            }
          } else {
             return console.log(`No se ha podido ingresar el producto: ${title}, por repetición del code: ${code}`)
          }
@@ -40,19 +51,12 @@ class ProductManager {
    }
 }
 
-let producto = new ProductManager();
+const path = './products.txt';
+
+let producto = new ProductManager(path);
 
 producto.getProducts();
 
 producto.addProduct("producto prueba", "Este es un producto prueba", 200, "Sin imagen", "abc123", 25);
 
 producto.getProducts();
-
-producto.getProductById(1)
-
-producto.getProductById(2)
-
-producto.addProduct("producto prueba 2", "Este es un producto prueba", 200, "Sin imagen", "abc123", 25);
-
-producto.getProducts();
-
