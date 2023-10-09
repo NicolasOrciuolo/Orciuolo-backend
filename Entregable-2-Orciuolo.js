@@ -2,61 +2,112 @@ const fs = require('fs');
 
 class ProductManager {
    constructor(path) {
-      this.products = [];
       this.path = path;
    }
 
-   addProduct(title, description, price, thumbnail, code, stock) {
+   async addProduct(product) {
+      const { title, description, price, thumbnail, code, stock } = product;
+
       if (!title || !description || !price || !thumbnail || !code || !stock) {
          throw new Error('Por favor, verifique la completitud de los campos ingresados')
-      } else {
-         let searchCode = this.products.find((products) => products.code === code);
+      }
 
-         if (!searchCode) {
-            this.products.push({
-               id: this.products.length + 1,
-               title,
-               description,
-               price,
-               thumbnail,
-               code,
-               stock,
-            })
-            if (this.products.length === 1){
-               fs.writeFileSync(this.path, "abc", 'utf-8');   //VER ACÁ
-            } else{
-               if (!fs.existsSync(path)) {
-                  return console.log('El archivo no se encuentra')
-               }
-               fs.appendFileSync(this.path, this.products, 'utf-8');
-            }
-         } else {
-            return console.log(`No se ha podido ingresar el producto: ${title}, por repetición del code: ${code}`)
+      const products = await getProductsFromFile(this.path);
+
+      let searchCode = products.find((productFound) => productFound.code === code);
+
+      if (!searchCode) {
+         const newProduct = {
+            id: products.length + 1,
+            title,
+            description,
+            price,
+            thumbnail,
+            code,
+            stock,
          }
+
+      products.push(newProduct);
+
+      await saveProductsinFile(this.path, products);
+      console.log(`${title}, ingresado exitosamente en el archivo.`);
+
+      } else {
+         return console.log(`No se ha podido ingresar el producto: ${title}, por repetición del code: ${code}`)
       }
    }
 
    getProducts() {
-      return console.log(this.products)
+      return getProductsFromFile(this.path);
    }
 
-   getProductById(id){
-      let searchProduct = this.products.find((products) => products.id === id);
+   async getProductById(id) {
+      //LEO EL ARCHIVO
+      const products = await getProductsFromFile(this.path);
 
-      if(searchProduct){
-         console.log(searchProduct)
-      }else{
+      let searchProduct = products.find((productFound) => productFound.id === id);
+
+      if (searchProduct) {
+         console.log('Product searched: ', searchProduct)
+      } else {
          return console.log("Not found")
       }
    }
 }
 
-const path = './products.txt';
+const getProductsFromFile = async (path) => {
+   if (!fs.existsSync(path)) {
+      return [];
+   }
+   const content = await fs.promises.readFile(path, 'utf-8');
+   return JSON.parse(content);
+}
 
-let producto = new ProductManager(path);
+const saveProductsinFile = (path, data) => {
+   const content = JSON.stringify(data, null, '\t');
+   return fs.promises.writeFile(path, content, 'utf-8');
+}
 
-producto.getProducts();
 
-producto.addProduct("producto prueba", "Este es un producto prueba", 200, "Sin imagen", "abc123", 25);
+async function test() {
+   const path = './products.txt';
 
-producto.getProducts();
+   const producto = new ProductManager(path);
+
+   const product1 = {
+      title: "producto prueba",
+      description: "Este es un producto prueba",
+      price: 200,
+      thumbnail: "Sin imagen",
+      code: "abc123",
+      stock: 25,
+   }
+   const product2 = {
+      title: "producto prueba 2",
+      description: "Este es un producto prueba 2",
+      price: 200,
+      thumbnail: "Sin imagen",
+      code: "abc123",
+      stock: 25,
+   }
+   const product3 = {
+      title: "producto prueba 3",
+      description: "Este es un producto prueba 3",
+      price: 300,
+      thumbnail: "Sin imagen",
+      code: "abc1234",
+      stock: 15,
+   }
+
+   await producto.addProduct(product1);
+
+   await producto.addProduct(product2);
+
+   await producto.addProduct(product3);
+
+   console.log(await producto.getProducts());
+
+   await producto.getProductById(1);
+}
+
+test();
