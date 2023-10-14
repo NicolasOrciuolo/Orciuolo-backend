@@ -127,57 +127,114 @@ const saveProductsinFile = (path, data) => {
    return fs.promises.writeFile(path, content, 'utf-8');
 }
 
+module.exports = ProductManager;
 
 // TEST ####################################################
-async function test() {
-   const path = './products.txt';
+// async function test() {
+//    const path = './products.txt';
 
-   const producto = new ProductManager(path);
+//    const producto = new ProductManager(path);
 
-   const product1 = {
-      title: "producto prueba",
-      description: "Este es un producto prueba",
-      price: 200,
-      thumbnail: "Sin imagen",
-      code: "abc1",
-      stock: 25,
-   }
-   const product2 = {
-      title: "producto prueba 2",
-      description: "Este es un producto prueba 2",
-      price: 200,
-      thumbnail: "Sin imagen",
-      code: "abc1",
-      stock: 25,
-   }
-   const product3 = {
-      title: "producto prueba 3",
-      description: "Este es un producto prueba 3",
-      price: 300,
-      thumbnail: "Sin imagen",
-      code: "abc123",
-      stock: 15,
-   }
-   const product4 = {
-      title: "producto prueba 4",
-      description: "Este es un producto prueba 4",
-      price: 300,
-      thumbnail: "Sin imagen",
-      code: "abc1234",
-      stock: 15,
-   }
+//    const product1 = {
+//       title: "producto prueba 1",
+//       description: "Este es un producto prueba 1",
+//       price: 200,
+//       thumbnail: "Sin imagen",
+//       code: "abc1",
+//       stock: 25,
+//    }
+//    const product2 = {
+//       title: "producto prueba 2",
+//       description: "Este es un producto prueba 2",
+//       price: 200,
+//       thumbnail: "Sin imagen",
+//       code: "abc12",
+//       stock: 25,
+//    }
+//    const product3 = {
+//       title: "producto prueba 3",
+//       description: "Este es un producto prueba 3",
+//       price: 300,
+//       thumbnail: "Sin imagen",
+//       code: "abc123",
+//       stock: 15,
+//    }
+//    const product4 = {
+//       title: "producto prueba 4",
+//       description: "Este es un producto prueba 4",
+//       price: 300,
+//       thumbnail: "Sin imagen",
+//       code: "abc1234",
+//       stock: 15,
+//    }
+//    const product5 = {
+//       title: "producto prueba 5",
+//       description: "Este es un producto prueba 5",
+//       price: 300,
+//       thumbnail: "Sin imagen",
+//       code: "abc12345",
+//       stock: 15,
+//    }
+//    const product6 = {
+//       title: "producto prueba 6",
+//       description: "Este es un producto prueba 6",
+//       price: 300,
+//       thumbnail: "Sin imagen",
+//       code: "abc123456",
+//       stock: 15,
+//    }
+//    const product7 = {
+//       title: "producto prueba 7",
+//       description: "Este es un producto prueba 7",
+//       price: 300,
+//       thumbnail: "Sin imagen",
+//       code: "abc1234567",
+//       stock: 15,
+//    }
+//    const product8 = {
+//       title: "producto prueba 8",
+//       description: "Este es un producto prueba 8",
+//       price: 300,
+//       thumbnail: "Sin imagen",
+//       code: "abc12345678",
+//       stock: 15,
+//    }
+//    const product9 = {
+//       title: "producto prueba 9",
+//       description: "Este es un producto prueba 9",
+//       price: 300,
+//       thumbnail: "Sin imagen",
+//       code: "abc123456789",
+//       stock: 15,
+//    }
+//    const product10 = {
+//       title: "producto prueba 10",
+//       description: "Este es un producto prueba 10",
+//       price: 300,
+//       thumbnail: "Sin imagen",
+//       code: "abc12345678910",
+//       stock: 15,
+//    }
 
-   await producto.addProduct(product1); //Ingreso un producto
-   await producto.addProduct(product2); //Ingreso un producto
-   await producto.addProduct(product3); //Ingreso un producto
-   console.log(await producto.getProducts()); //Muestro los productos de la BD
-   await producto.getProductById(1); //Muestro el producto con ID=1
-   await producto.updateProduct(2, { id: 4 }); //Intento modificar el ID de un producto
-   await producto.updateProduct(2, { price: 4000 }); //Intento modificar el PRECIO de un producto
-   await producto.deleteProduct(1); //Elimino el producto con ID 1
-   console.log(await producto.getProducts()); //Muestro los productos de la BD (no debería mostrar el producto con ID=1)
-   await producto.addProduct(product4); //Ingreso un producto
-   console.log(await producto.getProducts()); //Muestro los productos de la BD (no debería repetir el ID en el último producto agregado)
-}
+//    await producto.addProduct(product1); //Ingreso un producto
+//    await producto.addProduct(product2); //Ingreso un producto
+//    await producto.addProduct(product3); //Ingreso un producto
+//    await producto.addProduct(product4); //Ingreso un producto
+//    await producto.addProduct(product5); //Ingreso un producto
+//    await producto.addProduct(product6); //Ingreso un producto
+//    await producto.addProduct(product7); //Ingreso un producto
+//    await producto.addProduct(product8); //Ingreso un producto
+//    await producto.addProduct(product9); //Ingreso un producto
+//    await producto.addProduct(product10); //Ingreso un producto
 
-test();
+   // console.log(await producto.getProducts()); //Muestro los productos de la BD
+   // await producto.getProductById(1); //Muestro el producto con ID=1
+   // await producto.updateProduct(2, { id: 4 }); //Intento modificar el ID de un producto
+   // await producto.updateProduct(2, { price: 4000 }); //Intento modificar el PRECIO de un producto
+   // await producto.deleteProduct(1); //Elimino el producto con ID 1
+   // console.log(await producto.getProducts()); //Muestro los productos de la BD (no debería mostrar el producto con ID=1)
+   // await producto.addProduct(product4); //Ingreso un producto
+   // console.log(await producto.getProducts()); //Muestro los productos de la BD (no debería repetir el ID en el último producto agregado)
+// }
+
+// test();
