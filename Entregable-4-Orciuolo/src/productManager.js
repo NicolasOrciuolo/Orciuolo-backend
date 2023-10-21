@@ -6,10 +6,11 @@ class ProductManager {
    }
 
    async addProduct(product) {
-      const { title, description, price, thumbnail, code, stock } = product;
+      const { title, description, code, price, status, stock, category, thumbnail } = product;
 
-      if (!title || !description || !price || !thumbnail || !code || !stock) {
-         throw new Error('Por favor, verifique la completitud de los campos ingresados')
+      if (!title || !description || !code || !price || !stock || !category) {
+         console.log("No se ha podido ingresar el producto, debido a campos incompletos");
+         return 400;
       }
 
       const products = await getProductsFromFile(this.path);
@@ -22,24 +23,22 @@ class ProductManager {
          newID = products[products.length - 1].id + 1;
       }
 
-      let searchCode = products.find((productFound) => productFound.code === code);
-      if (!searchCode) {
-         const newProduct = {
-            id: newID,
-            title,
-            description,
-            price,
-            thumbnail,
-            code,
-            stock,
-         }
-         products.push(newProduct);
-
-         await saveProductsinFile(this.path, products);
-         console.log(`${title}, ingresado exitosamente en el archivo.`);
-      } else {
-         return console.log(`No se ha podido ingresar el producto: ${title}, por repetición del code: ${code}`)
+      const newProduct = {
+         id: newID,
+         title,
+         description,
+         code,
+         price,
+         status,
+         stock,
+         category,
+         thumbnail
       }
+      products.push(newProduct);
+
+      await saveProductsinFile(this.path, products);
+      console.log(`${title}, ingresado exitosamente en el archivo.`);
+      return 201;
    }
 
    async getProducts() {
@@ -62,7 +61,7 @@ class ProductManager {
    }
 
    async updateProduct(productID, data) {
-      const { id, title, description, price, thumbnail, code, stock } = data;
+      const { id, title, description, code, price, status, stock, category, thumbnail } = data;
 
       const products = await getProductsFromFile(this.path);
 
@@ -92,6 +91,12 @@ class ProductManager {
          }
          if (stock) {
             products[productPosition].stock = stock;
+         }
+         if (status) {
+            products[productPosition].status = status;
+         }
+         if (category) {
+            products[productPosition].category = category;
          }
 
          await saveProductsinFile(this.path, products);

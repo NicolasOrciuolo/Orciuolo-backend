@@ -4,6 +4,8 @@ const productsRouter = require('./routers/products.routers');
 const indexRouter = require('./routers/index.routers');
 
 const app = express();
+const PORT = 8080;
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -11,6 +13,6 @@ app.use('/', indexRouter);
 app.use('/api', productsRouter);
 
 
-app.listen(8080, () => {
-   console.log('Server running in http://localhost:8080');
+app.listen(PORT, () => {
+   console.log(`Server running in http://localhost:${PORT}`);
 });

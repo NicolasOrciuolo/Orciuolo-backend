@@ -130,5 +130,60 @@
 		"stock": 150,
 		"category": "Golosinas",
 		"thumbnail": "https://saborlatinostore.com/wp-content/uploads/2022/09/GOLRHO0027.jpg"
+	},
+	{
+		"id": 13,
+		"title": "Producto prueba",
+		"description": "Producto prueba",
+		"code": "bdad1d8c-a389-4b49-80fc-7b45df6b2f89",
+		"price": 500,
+		"status": true,
+		"stock": 60,
+		"category": "Chocolates",
+		"thumbnail": "asd"
+	},
+	{
+		"id": 14,
+		"title": "Producto prueba",
+		"description": "Producto prueba",
+		"code": "23f11d75-3ffc-4f14-8d51-ee41cda5f27f",
+		"price": 500,
+		"status": true,
+		"stock": 60,
+		"category": "Chocolates",
+		"thumbnail": "asd"
+	},
+	{
+		"id": 15,
+		"title": "Producto prueba 2",
+		"description": "Producto prueba 2",
+		"code": "963e6300-27cc-40d6-ba90-6d5801731223",
+		"price": 150,
+		"status": true,
+		"stock": 50,
+		"category": "Golosinas",
+		"thumbnail": "asd"
+	},
+	{
+		"id": 16,
+		"title": "Producto prueba 3",
+		"description": "Producto prueba 3",
+		"code": "efb83c07-3db0-434d-b333-c5a994af9392",
+		"price": 150,
+		"status": true,
+		"stock": 50,
+		"category": "Chocolates",
+		"thumbnail": "asd"
+	},
+	{
+		"id": 17,
+		"title": "Producto prueba 4",
+		"description": "Producto prueba 3",
+		"code": "e0bb2b1b-8664-49d3-b762-7b9ecc0f005f",
+		"price": 150,
+		"status": true,
+		"stock": 50,
+		"category": "Chocolates",
+		"thumbnail": "asd"
 	}
 ]
