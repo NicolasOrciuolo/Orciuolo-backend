@@ -1,6 +1,6 @@
 const { Router } = require('express');
 const ProductManager = require('../productManager');
-const { v4: uuidV4 } = require('uuid')
+const { v4: uuidV4 } = require('uuid');
 
 
 const productsRouter = Router();
@@ -70,12 +70,9 @@ productsRouter.put('/products/:pid', async (req, res) => {
 
 productsRouter.delete('/products/:pid', async (req, res) => {
    const { params } = req;
-   const id = params.pid;
-   console.log(id);
+   const pid = params.pid;
 
-   const deleteStatus = await producto.deleteProduct(parseInt(id));
-
-   console.log(deleteStatus)
+   const deleteStatus = await producto.deleteProduct(parseInt(pid));
 
    if (deleteStatus === 200) {
       res.status(200).json({ message: "Producto eliminado exitosamente." });
