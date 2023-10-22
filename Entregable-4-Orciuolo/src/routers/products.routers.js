@@ -53,10 +53,36 @@ productsRouter.post('/products', async (req, res) => {
    }
 })
 
-productsRouter.put('/products/:pid', (req, res) => {
-   const { body } = req;
+productsRouter.put('/products/:pid', async (req, res) => {
+   const { body, params } = req;
+   const id = params.pid;
 
-   
+   const putStatus = await producto.updateProduct(parseInt(id), body);
+
+   if (putStatus === 200) {
+      res.status(200).json({ message: "Producto actualizado exitosamente." });
+   } else if (putStatus === 404) {
+      res.status(404).json({ message: "No se encontró el producto." })
+   } else {
+      res.status(400).json({ message: "No se permite modificar el ID de un producto." })
+   }
+})
+
+productsRouter.delete('/products/:pid', async (req, res) => {
+   const { params } = req;
+   const id = params.pid;
+   console.log(id);
+
+   const deleteStatus = await producto.deleteProduct(parseInt(id));
+
+   console.log(deleteStatus)
+
+   if (deleteStatus === 200) {
+      res.status(200).json({ message: "Producto eliminado exitosamente." });
+   } else {
+      res.status(404).json({ message: "No se encontró el producto." })
+   }
+
 })
 
 

@@ -67,11 +67,13 @@ class ProductManager {
 
       const productPosition = products.findIndex((productFound) => productFound.id === productID);
       if (productPosition === -1) {
-         throw new Error('Producto no encontrado.');
+         console.log('Producto no encontrado.');
+         return (404);
       }
 
       if (id) {
-         console.log('No es posible modificar el ID de un producto.')
+         console.log('No es posible modificar el ID de un producto.');
+         return (400);
       }
       else {
          if (title) {
@@ -101,6 +103,7 @@ class ProductManager {
 
          await saveProductsinFile(this.path, products);
          console.log('Productos actualizados exitosamente.')
+         return (200);
       }
    }
 
@@ -109,13 +112,15 @@ class ProductManager {
 
       const productPosition = products.findIndex((productFound) => productFound.id === id);
       if (productPosition === -1) {
-         throw new Error('Producto no encontrado.');
+         console.log('Producto no encontrado.');
+         return (404);
       }
 
       products[productPosition].id = 'deleted';
 
       await saveProductsinFile(this.path, products);
       console.log(`Producto: ${products[productPosition].title} eliminado exitosamente.`)
+      return (200);
    }
 }
 

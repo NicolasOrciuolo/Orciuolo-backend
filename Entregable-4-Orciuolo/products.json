@@ -144,7 +144,7 @@
 	},
 	{
 		"id": 14,
-		"title": "Producto prueba",
+		"title": "Producto prueba 14",
 		"description": "Producto prueba",
 		"code": "23f11d75-3ffc-4f14-8d51-ee41cda5f27f",
 		"price": 500,
@@ -160,7 +160,7 @@
 		"code": "963e6300-27cc-40d6-ba90-6d5801731223",
 		"price": 150,
 		"status": true,
-		"stock": 50,
+		"stock": 33000,
 		"category": "Golosinas",
 		"thumbnail": "asd"
 	},
