@@ -6,7 +6,6 @@ class CartsManager {
    }
 
    async addCart() {
-
       const cart = await getCartsFromFile(this.path);
 
       //BUSCO EL ÚLTIMO ID PARA GENERAR NUEVO
@@ -34,6 +33,24 @@ class CartsManager {
       const cartToShow = cart.filter((cartID) => cartID.id != "deleted");
 
       return cartToShow;
+   }
+
+   async addProductsInCart(productAdded) {
+      const { cartID, productID, quantity } = productAdded;
+
+      const getCart = await getCartsFromFile(this.path);
+
+      const cartPosition = getCart.findIndex((cartFound) => cartFound.id === cartID);
+      if (cartPosition === -1) {
+         console.log('Carrito no encontrado.');
+         return (404);
+      }
+
+      getCart[cartPosition].products.push({productID, quantity}); 
+
+      await saveCartsinFile(this.path, getCart);
+      console.log(`ID Producto: ${productID} agregado exitosamente al carrito: ${cartID}.`);
+      return 200;
    }
 
 }

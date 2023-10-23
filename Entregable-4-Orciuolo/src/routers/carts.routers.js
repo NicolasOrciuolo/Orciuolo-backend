@@ -30,9 +30,22 @@ cartsRouter.get('/carts/:cid', async (req, res) => {
    res.status(200).json(getCart[position].products);
 })
 
+cartsRouter.post('/carts/:cid/product/:pid', async (req, res) => {
+   const { body, params } = req;
+   const cid = params.cid;
+   const pid = params.pid;
 
+   const cartID = parseInt(cid);
+   const productID = parseInt(pid);
+   const quantity = body;
 
+   const postStatus = await cart.addProductsInCart({cartID, productID, ...quantity });
 
-
+   if (postStatus === 200) {
+      res.status(200).json({message: "Producto agregado exitosamente."});
+   } else{
+      res.status(404).json({message: "Carrito no encontrado"});
+   }
+})
 
 module.exports = cartsRouter;
