@@ -28,19 +28,78 @@
 			{
 				"productID": 5,
 				"quantity": 5
+			},
+			{
+				"productID": 5,
+				"quantity": 5
 			}
 		]
 	},
 	{
 		"id": 4,
-		"products": []
+		"products": [
+			{
+				"productID": 5,
+				"quantity": 5
+			},
+			{
+				"productID": 6,
+				"quantity": 5
+			},
+			{
+				"productID": 6,
+				"quantity": 5
+			},
+			{
+				"productID": 6,
+				"quantity": 5
+			},
+			{
+				"productID": 6,
+				"quantity": 5
+			}
+		]
 	},
 	{
 		"id": 5,
-		"products": []
+		"products": [
+			{
+				"productID": 1,
+				"quantity": 5
+			},
+			{
+				"productID": 2,
+				"quantity": 5
+			},
+			{
+				"productID": 3,
+				"quantity": 5
+			},
+			{
+				"productID": 3,
+				"quantity": 5
+			},
+			{
+				"productID": 3,
+				"quantity": 5
+			}
+		]
 	},
 	{
 		"id": 6,
-		"products": []
+		"products": [
+			{
+				"productID": 1,
+				"quantity": 5
+			},
+			{
+				"productID": 1,
+				"quantity": 3
+			},
+			{
+				"productID": 1,
+				"quantity": 3
+			}
+		]
 	}
 ]
