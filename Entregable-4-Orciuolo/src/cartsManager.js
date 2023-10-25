@@ -48,24 +48,20 @@ class CartsManager {
 
       const cartSelected = getCart[cartPosition].products; //Ubico al carrito
 
-      const findQuantity = cartSelected.findIndex((cartSelectedFound) => cartSelectedFound.productID === productID); //Busco si ya estaba cargado el producto en el carrito
+      const findProduct = cartSelected.findIndex((cartSelectedFound) => cartSelectedFound.productID === productID); //Busco si ya estaba cargado el producto en el carrito
 
-      if (previousQuantity !== -1) {
-         console.log(cartSelected[findQuantity].quantity);
+      if (findProduct !== -1) {
+         const newQuantity = cartSelected[findProduct].quantity + quantity;
+         cartSelected[findProduct].quantity = newQuantity;
+         console.log(`Producto ID: ${productID} agregado exitosamente al carrito: ${cartID}. Total: ${newQuantity}`);
+      } else{
+         cartSelected.push({ productID, quantity });
+         console.log(`Producto ID: ${productID} agregado exitosamente al carrito: ${cartID}. Total: ${quantity}`);
       }
 
-
-      // const total = () => items.reduce((acc, val) => acc + val.quantity * val.price, 0)
-
-
-
-      cartSelected.push({ productID, quantity });
-
       await saveCartsinFile(this.path, getCart);
-      console.log(`ID Producto: ${productID} agregado exitosamente al carrito: ${cartID}.`);
       return 200;
    }
-
 }
 
 const getCartsFromFile = async (path) => {
