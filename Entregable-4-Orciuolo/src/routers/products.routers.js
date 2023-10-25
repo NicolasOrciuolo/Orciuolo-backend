@@ -2,10 +2,8 @@ const { Router } = require('express');
 const ProductManager = require('../productManager');
 const { v4: uuidV4 } = require('uuid');
 
-
 const productsRouter = Router();
 const producto = new ProductManager('./products.json');
-
 
 productsRouter.get('/products', async (req, res) => {
    const { query } = req;
@@ -79,9 +77,7 @@ productsRouter.delete('/products/:pid', async (req, res) => {
    } else {
       res.status(404).json({ message: "No se encontró el producto." })
    }
-
 })
-
 
 module.exports = productsRouter;
 
