@@ -2,8 +2,13 @@ const { Router } = require('express');
 
 const indexRouter = Router();
 
-indexRouter.get('/', (req, res) => {
-   res.status(200).send('<h1>Primera Pre-entrega curso Backend - Nicolás Orciuolo</h1>')
+const ProductManager = require('../productManager');
+const producto = new ProductManager('./products.json');
+
+indexRouter.get('/', async (req, res) => {
+   const products = await producto.getProducts();
+
+   res.render('home', {title: "Productos", products});
 });
 
 module.exports = indexRouter;
