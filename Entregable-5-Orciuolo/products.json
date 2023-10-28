@@ -1,0 +1,145 @@
+[
+	{
+		"id": 1,
+		"title": "Pico dulce",
+		"description": "Pico Dulce es la golosina que te acompaña a todos lados, con el más rico sabor y toda la onda.",
+		"code": "abc1",
+		"price": 100,
+		"status": true,
+		"stock": 250,
+		"category": "Golosinas",
+		"thumbnail": "https://www.zanettigolosinas.com.ar/datos/uploads/mod_catalogo/32431/chupetines-pico-dulce-u-62055f8e054fa.jpg"
+	},
+	{
+		"id": 2,
+		"title": "Caramelos Sugus",
+		"description": "Caramelos masticables Sabores frutales.",
+		"code": "abc12",
+		"price": 25,
+		"status": true,
+		"stock": 500,
+		"category": "Golosinas",
+		"thumbnail": "https://saborlatinostore.com/wp-content/uploads/2022/09/GOLSUG0102.jpg.webp"
+	},
+	{
+		"id": 3,
+		"title": "Cadbury",
+		"description": "Chocolate Cadbury frutilla relleno yoghurt 162 g.",
+		"code": "abc123",
+		"price": 550,
+		"status": true,
+		"stock": 200,
+		"category": "Chocolates",
+		"thumbnail": "https://cdn11.bigcommerce.com/s-abmjjefojj/images/stencil/1280x1280/products/1182/17528/Diapositiva21__61344.1683673762.JPG?c=1&imbypass=on"
+	},
+	{
+		"id": 4,
+		"title": "Gomitas ositos",
+		"description": "Caramelos de gelatina Arcor Mogul Ositos sabor fruta x 30 gr.",
+		"code": "abc1234",
+		"price": 350,
+		"status": true,
+		"stock": 115,
+		"category": "Golosinas",
+		"thumbnail": "https://saborlatinostore.com/wp-content/uploads/2022/11/GOLMOG1063-1.jpg.webp"
+	},
+	{
+		"id": 5,
+		"title": "Cofler Blockazo",
+		"description": "Chocolate 1 kg edición limitada de Blockazo, en donde se representan algunas de las atracciones más reconocidas de Argentina.",
+		"code": "abc12345",
+		"price": 1350,
+		"status": true,
+		"stock": 70,
+		"category": "Chocolates",
+		"thumbnail": "https://saborlatinostore.com/wp-content/uploads/2022/11/GOLMOG1063-1.jpg.webp"
+	},
+	{
+		"id": 6,
+		"title": "Biznikke nevado",
+		"description": "Biznikke Nevado es un chocolate con leche y chocolate blanco con sabor a vainilla relleno de bizcocho.",
+		"code": "abc123456",
+		"price": 700,
+		"status": true,
+		"stock": 100,
+		"category": "Chocolates",
+		"thumbnail": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSl26qCJbcSHJUAhjHAmmdcGwrk1S_RWboFgPUbyyAzGgMzGxc2fPGsulMZWR-aKjt-Zw&usqp=CAU"
+	},
+	{
+		"id": 7,
+		"title": "Milka",
+		"description": "Chocolate con Leche Milka 55 gr.",
+		"code": "abc1234567",
+		"price": 400,
+		"status": true,
+		"stock": 180,
+		"category": "Chocolates",
+		"thumbnail": "https://masonlineprod.vtexassets.com/arquivos/ids/278101/Chocolate-Milka-Leger-Leche-110g-2-26638.jpg?v=638163273833900000"
+	},
+	{
+		"id": 8,
+		"title": "Chicles Topline",
+		"description": "Chicle Topline 7 Violet Cherry 16u X 14grms.",
+		"code": "abc12345678",
+		"price": 200,
+		"status": true,
+		"stock": 600,
+		"category": "Golosinas",
+		"thumbnail": "https://saborlatinostore.com/wp-content/uploads/2022/10/GOLTOP905.jpg.webp"
+	},
+	{
+		"id": 9,
+		"title": "Shot",
+		"description": "Chocolate Shot con maní 90gr.",
+		"code": "abc123456789",
+		"price": 300,
+		"status": true,
+		"stock": 320,
+		"category": "Chocolates",
+		"thumbnail": "https://statics.dinoonline.com.ar/imagenes/large_460x460/2180198_1_l.jpg"
+	},
+	{
+		"id": 10,
+		"title": "Kinder Bueno",
+		"description": "Kinder Bueno X2 Oblea Chocolate Con Leche Crema Avellana 43g",
+		"code": "abc12345678910",
+		"price": 500,
+		"status": true,
+		"stock": 60,
+		"category": "Chocolates",
+		"thumbnail": "https://d2izjnmtylvtfh.cloudfront.net/25716585-large_default/chocolate-kinder-bueno-43g.jpg"
+	},
+	{
+		"id": 11,
+		"title": "Mogul",
+		"description": "Gomitas Masticables Mogul Rollo x 35 g",
+		"code": "abc1234567891011",
+		"price": 150,
+		"status": true,
+		"stock": 260,
+		"category": "Golosinas",
+		"thumbnail": "https://alimentos-organicos.com.ar/wp-content/uploads/2019/09/gomitas-mogul-rollo-por-mayor-venta.jpg"
+	},
+	{
+		"id": 12,
+		"title": "Rhodesia",
+		"description": "Obleas con Relleno Sabor a Limon con Baño de Reposteria x 22gr",
+		"code": "abc123456789101112",
+		"price": 150,
+		"status": true,
+		"stock": 150,
+		"category": "Golosinas",
+		"thumbnail": "https://saborlatinostore.com/wp-content/uploads/2022/09/GOLRHO0027.jpg"
+	},
+	{
+		"id": "deleted",
+		"title": "Producto Prueba 13",
+		"description": "Producto Prueba 13",
+		"code": "264e29e4-6362-4b6f-b345-282fbdb84094",
+		"price": 1,
+		"status": true,
+		"stock": 200,
+		"category": "Golosinas",
+		"thumbnail": "imagen"
+	}
+]
