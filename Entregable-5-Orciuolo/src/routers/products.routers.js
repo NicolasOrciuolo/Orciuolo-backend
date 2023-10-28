@@ -1,6 +1,6 @@
-const { Router } = require('express');
-const ProductManager = require('../productManager');
-const { v4: uuidV4 } = require('uuid');
+import { Router } from 'express';
+import ProductManager from '../productManager.js';
+import { v4 as uuidv4 } from 'uuid';
 
 const productsRouter = Router();
 const producto = new ProductManager('./products.json');
@@ -39,7 +39,7 @@ productsRouter.post('/products', async (req, res) => {
    const { body } = req;
    const newProduct = {
       ...body,
-      code: uuidV4(),
+      code: uuidv4(),
       status: true
    }
    const postStatus = await producto.addProduct(newProduct);
@@ -79,5 +79,5 @@ productsRouter.delete('/products/:pid', async (req, res) => {
    }
 })
 
-module.exports = productsRouter;
+export default productsRouter;
 

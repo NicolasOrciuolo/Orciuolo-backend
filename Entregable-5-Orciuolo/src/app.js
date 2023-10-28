@@ -1,13 +1,13 @@
-const express = require('express');
-const path = require('path');
-const handlebars = require('express-handlebars');
+import express from 'express';
+import path from 'path';
+import handlebars from 'express-handlebars';
 
-const productsRouter = require('./routers/products.routers');
-const cartsRouter = require('./routers/carts.routers');
-const indexRouter = require('./routers/index.routers');
+import productsRouter from './routers/products.routers.js';
+import cartsRouter from './routers/carts.routers.js';
+import indexRouter from  './routers/index.routers.js';
 
 const app = express();
-const PORT = 8080;
+import { __dirname } from './utils.js';
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -20,6 +20,10 @@ app.set('view engine', 'handlebars');
 app.use('/', indexRouter);
 app.use('/api', productsRouter, cartsRouter);
 
-app.listen(PORT, () => {
-   console.log(`Server running in http://localhost:${PORT}`);
+app.use((error, req, res, next) => {
+   const message = `Ha ocurrido un error desconocido 😨: ,${error.message}`;
+   console.error(message);
+   res.status(500).json({message});
 });
+
+export default app;

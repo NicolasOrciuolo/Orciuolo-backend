@@ -1,8 +1,8 @@
-const { Router } = require('express');
+import { Router } from 'express';
+import ProductManager from '../productManager.js';
 
 const indexRouter = Router();
 
-const ProductManager = require('../productManager');
 const producto = new ProductManager('./products.json');
 
 indexRouter.get('/', async (req, res) => {
@@ -11,4 +11,4 @@ indexRouter.get('/', async (req, res) => {
    res.render('home', {title: "Productos", products});
 });
 
-module.exports = indexRouter;
+export default indexRouter;

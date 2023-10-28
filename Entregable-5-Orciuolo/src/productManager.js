@@ -1,4 +1,4 @@
-const fs = require('fs');
+import fs from 'fs';
 
 class ProductManager {
    constructor(path) {
@@ -137,4 +137,4 @@ const saveProductsinFile = (path, data) => {
    return fs.promises.writeFile(path, content, 'utf-8');
 }
 
-module.exports = ProductManager;
+export default ProductManager;

@@ -2,7 +2,8 @@
   "name": "primera-preentrega-orciuolo",
   "version": "0.0.1",
   "description": "Primer pre entrega del curso backend",
-  "main": "src/app.js",
+  "main": "src/server.js",
+  "type": "module",
   "scripts": {
     "start": "node .",
     "dev": "nodemon ."
