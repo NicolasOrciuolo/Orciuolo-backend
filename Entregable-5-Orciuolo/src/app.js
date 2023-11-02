@@ -4,8 +4,7 @@ import handlebars from 'express-handlebars';
 
 import productsRouter from './routers/products.routers.js';
 import cartsRouter from './routers/carts.routers.js';
-import indexRouter from  './routers/index.routers.js';
-import realTimeProducts from './routers/realTimeProducts.routers.js'
+import viewsRouter from './routers/views.routers.js';
 
 const app = express();
 import { __dirname } from './utils.js';
@@ -18,8 +17,7 @@ app.engine('handlebars', handlebars.engine());
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'handlebars');
 
-app.use('/', indexRouter);
-app.use('/realtimeproducts', realTimeProducts);
+app.use('/', viewsRouter);
 app.use('/api', productsRouter, cartsRouter);
 
 app.use((error, req, res, next) => {

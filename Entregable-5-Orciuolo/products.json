@@ -110,7 +110,7 @@
 		"thumbnail": "https://d2izjnmtylvtfh.cloudfront.net/25716585-large_default/chocolate-kinder-bueno-43g.jpg"
 	},
 	{
-		"id": 11,
+		"id": "11",
 		"title": "Mogul",
 		"description": "Gomitas Masticables Mogul Rollo x 35 g",
 		"code": "abc1234567891011",
@@ -121,7 +121,7 @@
 		"thumbnail": "https://alimentos-organicos.com.ar/wp-content/uploads/2019/09/gomitas-mogul-rollo-por-mayor-venta.jpg"
 	},
 	{
-		"id": 12,
+		"id": "12",
 		"title": "Rhodesia",
 		"description": "Obleas con Relleno Sabor a Limon con Baño de Reposteria x 22gr",
 		"code": "abc123456789101112",

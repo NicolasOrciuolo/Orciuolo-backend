@@ -1,4 +1,5 @@
-<form id="input-form">
+<h3>Agregar producto:</h3>
+<form id="input-form" class="container">
    <input type="text" id="input-title" placeholder="Titulo" required>
    <input type="text" id="input-description" placeholder="Descripción" required>
    <input type="text" id="input-code" placeholder="Código" required>
@@ -7,14 +8,12 @@
    <input type="text" id="input-stock" placeholder="Stock" required>
    <input type="text" id="input-category" placeholder="Categoría" required>
    <input type="text" id="input-thumbnail" placeholder="URL foto" required>
-   <div class="grid">
-      <input type="submit" value="Agregar producto">
-      <input type="submit" value="Eliminar producto">
-   </div>
 </form>
+   <button id="add-product">Agregar Producto</button>
+
 
 <h3>Listado de productos:</h3>
-<div id="products-list">
+<div id="products-list" class="container">
 </div>
 
 <script src="/socket.io/socket.io.js"></script>
