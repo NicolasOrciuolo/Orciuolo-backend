@@ -20,11 +20,13 @@ class ProductManager {
       if (products.length === 0) {
          newID = 1;
       } else {
-         newID = products[products.length - 1].id + 1;
+         const productsToShow = products.filter((productID) => productID.id != "deleted");
+         newID = productsToShow[productsToShow.length - 1].id + 1;
+         console.log(newID);
       }
 
       const newProduct = {
-         id: newID,
+         id: parseInt(newID),
          title,
          description,
          code,

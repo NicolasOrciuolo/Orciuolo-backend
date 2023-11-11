@@ -19,6 +19,7 @@ export const init = (httpServer) => {
          if (postStatus === 201) {
             socketClient.emit('productAdded', newProduct);
             console.log(`Producto: ${newProduct.title} agregado ✔`);
+            socketClient.emit('getProducts', products);
          } else {
             console.error('No se ha podido agregar el producto ❌');
          }
@@ -30,6 +31,7 @@ export const init = (httpServer) => {
          if (deleteStatus === 200) {
             socketClient.emit('productDeleted', productId);
             console.log(`Producto: ${productId} eliminado ✔`);
+            socketClient.emit('getProducts', products);
          } else {
             console.error('No se ha podido eliminar el producto ❌');
          }
