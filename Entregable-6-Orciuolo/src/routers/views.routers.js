@@ -1,14 +1,14 @@
 import { Router } from 'express';
-import ProductManager from '../dao/productManager.js';
+// import ProductManager from '../dao/productManager.js';
+import ProductManager from '../dao/mongo-productManager.js';
 
 const viewsRouter = Router();
 
-const producto = new ProductManager('./products.json');
+// const producto = new ProductManager('./products.json');
 
 viewsRouter.get('/', async (req, res) => {
-   const products = await producto.getProducts();
-
-   res.render('home', { title: "Productos", products });
+   const products = await ProductManager.getProducts();
+   res.render('home', { products: products.map(product => product.toJSON()),  title: "Productos"});
 });
 
 viewsRouter.get('/realtimeproducts', (req, res) => {

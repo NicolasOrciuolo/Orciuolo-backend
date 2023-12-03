@@ -1,6 +1,6 @@
 import { Server } from 'socket.io'
 import ProductManager from './dao/productManager.js';
-import MessageModel from './models/message.model.js';
+import MessageModel from './dao/models/message.model.js';
 
 const producto = new ProductManager('./products.json');
 

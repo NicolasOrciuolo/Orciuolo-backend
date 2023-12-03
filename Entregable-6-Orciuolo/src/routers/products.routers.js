@@ -1,14 +1,13 @@
 import { Router } from 'express';
-import ProductManager from '../dao/productManager.js';
+import ProductManager from '../dao/mongo-productManager.js'
 import { v4 as uuidv4 } from 'uuid';
 
 const productsRouter = Router();
-const producto = new ProductManager('./products.json');
 
 productsRouter.get('/products', async (req, res) => {
    const { query } = req;
    const { limit } = query;
-   const products = await producto.getProducts();
+   const products = await ProductManager.getProducts();
    if (!limit) {
       res.status(200).json(products);
    } else {
@@ -21,7 +20,7 @@ productsRouter.get('/products/:pid', async (req, res) => {
    const { params } = req;
    const productId = params.pid;
 
-   const products = await producto.getProducts();
+   const products = await ProductManager.getProducts();
 
    const position = products.findIndex((findId) => {
       return findId.id === parseInt(productId)
@@ -42,7 +41,7 @@ productsRouter.post('/products', async (req, res) => {
       code: uuidv4(),
       status: true
    }
-   const postStatus = await producto.addProduct(newProduct);
+   const postStatus = await ProductManager.addProduct(newProduct);
 
    if (postStatus === 201) {
       res.status(201).json(newProduct);
@@ -55,7 +54,7 @@ productsRouter.put('/products/:pid', async (req, res) => {
    const { body, params } = req;
    const id = params.pid;
 
-   const putStatus = await producto.updateProduct(parseInt(id), body);
+   const putStatus = await ProductManager.updateProduct(parseInt(id), body);
 
    if (putStatus === 200) {
       res.status(200).json({ message: "Producto actualizado exitosamente." });
@@ -70,7 +69,7 @@ productsRouter.delete('/products/:pid', async (req, res) => {
    const { params } = req;
    const pid = params.pid;
 
-   const deleteStatus = await producto.deleteProduct(parseInt(pid));
+   const deleteStatus = await ProductManager.deleteProduct(pid);
 
    if (deleteStatus === 200) {
       res.status(200).json({ message: "Producto eliminado exitosamente." });
