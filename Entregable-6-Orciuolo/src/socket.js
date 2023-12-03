@@ -1,5 +1,6 @@
 import { Server } from 'socket.io'
-import ProductManager from './productManager.js';
+import ProductManager from './dao/productManager.js';
+import MessageModel from './models/message.model.js';
 
 const producto = new ProductManager('./products.json');
 
@@ -37,8 +38,13 @@ export const init = (httpServer) => {
          }
       });
 
+      //CHAT
+      const messages = await MessageModel.find({});
+      socketClient.emit('update-messages', messages);
+
       socketClient.on('disconnect', () => {
          console.log(`Cliente socket desconectado: ${socketClient.id} 🖐`)
       });
    })
+
 }
