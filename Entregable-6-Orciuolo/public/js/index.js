@@ -7,16 +7,16 @@ socket.on('getProducts', (products) => {
    products.forEach(product => {
       const productCard = document.createElement("div")
       productCard.innerHTML = `
-      <p><strong>Title: </strong> ${product.title}</p>
-      <p><strong>Description: </strong> ${product.description}</p>
-      <p><strong>Code: </strong> ${product.code}</p>
-      <p><strong>Price: </strong> ${product.price}</p>
-      <p><strong>Stock: </strong> ${product.stock}</p>
-      <p><strong>Category: </strong> ${product.category}</p>
-      <p><strong>Thumbnail: </strong> ${product.thumbnail}</p>
-      <button id="delete-product${product.id}" class="contrast">Eliminar Producto</button>
-      <hr>       
-      `;
+         <p><strong>Title: </strong> ${product.title}</p>
+         <p><strong>Description: </strong> ${product.description}</p>
+         <p><strong>Code: </strong> ${product.code}</p>
+         <p><strong>Price: </strong> ${product.price}</p>
+         <p><strong>Stock: </strong> ${product.stock}</p>
+         <p><strong>Category: </strong> ${product.category}</p>
+         <p><strong>Thumbnail: </strong> ${product.thumbnail}</p>
+         <button id="delete-product${product.id}" class="contrast">Eliminar Producto</button>
+         <hr>       
+         `;
       productList.appendChild(productCard);
    });
 
@@ -56,9 +56,7 @@ addProduct.addEventListener('click', (event) => {
    console.log('👍 Producto enviado desde el Cliente: ', newProduct)
 })
 
-socket.on('update-messages', (messages) => {
-   console.log('messages', messages);
-})
+
 
 
 

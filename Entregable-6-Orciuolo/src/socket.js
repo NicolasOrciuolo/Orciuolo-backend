@@ -1,20 +1,18 @@
 import { Server } from 'socket.io'
-import ProductManager from './dao/productManager.js';
+import ProductManager from './dao/mongo-productManager.js'
 import MessageModel from './dao/models/message.model.js';
 
-const producto = new ProductManager('./products.json');
-
-export const init = (httpServer) => {
+export const initSocket = (httpServer) => {
    const socketServer = new Server(httpServer);
 
    socketServer.on('connection', async (socketClient) => {
       console.log(`Nuevo cliente socket conectado: ${socketClient.id} 🖐`);
 
-      const products = await producto.getProducts();
+      const products = await ProductManager.getProducts();
       socketClient.emit('getProducts', products);
 
       socketClient.on('addProduct', async (newProduct) => {
-         const postStatus = await producto.addProduct(newProduct);
+         const postStatus = await ProductManager.addProduct(newProduct);
          console.log(newProduct);
 
          if (postStatus === 201) {
@@ -27,7 +25,7 @@ export const init = (httpServer) => {
       });
 
       socketClient.on('deleteProduct', async (productId) => {
-         const deleteStatus = await producto.deleteProduct(parseInt(productId));
+         const deleteStatus = await ProductManager.deleteProduct(parseInt(productId));
 
          if (deleteStatus === 200) {
             socketClient.emit('productDeleted', productId);
@@ -41,6 +39,12 @@ export const init = (httpServer) => {
       //CHAT
       const messages = await MessageModel.find({});
       socketClient.emit('update-messages', messages);
+
+      socketClient.on('new-message', async (msg) => {
+         await MessageModel.create(msg);
+         const messages = await MessageModel.find({});
+         socketClient.emit('update-messages', messages);
+      })
 
       socketClient.on('disconnect', () => {
          console.log(`Cliente socket desconectado: ${socketClient.id} 🖐`)
