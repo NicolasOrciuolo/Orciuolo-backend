@@ -1,3 +1,5 @@
+(function () {
+
 const socket = io();
 
 socket.on('getProducts', (products) => {
@@ -56,7 +58,7 @@ addProduct.addEventListener('click', (event) => {
    console.log('👍 Producto enviado desde el Cliente: ', newProduct)
 })
 
-
+})();
 
 
 
