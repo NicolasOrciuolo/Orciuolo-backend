@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 
 const messageSchema = new mongoose.Schema({
    user: String,
-   body: String,
+   message: String,
 }, { timestamps: true });
 
 export default mongoose.model('Message', messageSchema);

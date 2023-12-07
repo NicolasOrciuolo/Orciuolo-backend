@@ -25,7 +25,7 @@ class CartsManager {
 
    static async getCartByID(cid) {
       const cart = await CartModel.find({ id: cid });
-      if (!cart){
+      if (!cart) {
          throw new Error('Carrito no encontrado 😨');
       }
       return cart;
@@ -34,26 +34,28 @@ class CartsManager {
    static async addProductsInCart(productAdded) {
       const { cartID, productID, quantity } = productAdded;
 
-      const getCart = await CartModel.find({});
+      const getCart = await CartModel.find({ id: cartID });
 
-      const cartPosition = getCart.findIndex((cartFound) => cartFound.id === cartID);
-      if (cartPosition === -1) {
+      if (!getCart) {
          console.log('Carrito no encontrado.');
          return (404);
       }
 
-      const cartSelected = getCart[cartPosition].products; //Ubico al carrito
+      const cartSelected = getCart[0].products; //Ubico al carrito
 
       const findProduct = cartSelected.findIndex((cartSelectedFound) => cartSelectedFound.productID === productID); //Busco si ya estaba cargado el producto en el carrito
 
       if (findProduct !== -1) {
-         const newQuantity = cartSelected[findProduct].quantity + quantity;
-         cartSelected[findProduct].quantity = newQuantity;
-         console.log(`Producto ID: ${productID} agregado exitosamente al carrito: ${cartID}. Total: ${newQuantity}`);
+         const newQuantity = getCart[0].products[findProduct].quantity + quantity;
+         cartSelected.quantity = newQuantity;
+         await CartModel.updateOne({ id: cartID, 'products.productID': productID }, { $set: { 'products.$.quantity': newQuantity } });
       } else {
-         // cartSelected.push({ productID, quantity });
-         await CartModel.updateOne({ id: productID }, { $quantity: quantity });
-
+         const newProduct = {
+            productID: productID,
+            quantity: quantity
+         }
+         cartSelected.push(newProduct);
+         await CartModel.updateOne({ id: cartID }, { $set: { products: cartSelected } });
          console.log(`Producto ID: ${productID} agregado exitosamente al carrito: ${cartID}. Total: ${quantity}`);
       }
 
