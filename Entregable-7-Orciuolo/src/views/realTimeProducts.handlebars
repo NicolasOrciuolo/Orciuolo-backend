@@ -1,0 +1,20 @@
+<h3>Agregar producto:</h3>
+<form id="input-form" class="container">
+   <input type="text" id="input-title" placeholder="Titulo" required>
+   <input type="text" id="input-description" placeholder="Descripción" required>
+   <input type="text" id="input-code" placeholder="Código" required>
+   <input type="text" id="input-price" placeholder="Precio" required>
+   <input type="text" id="input-status" placeholder="Status" required>
+   <input type="text" id="input-stock" placeholder="Stock" required>
+   <input type="text" id="input-category" placeholder="Categoría" required>
+   <input type="text" id="input-thumbnail" placeholder="URL foto" required>
+</form>
+   <button id="add-product">Agregar Producto</button>
+
+
+<h3>Listado de productos:</h3>
+<div id="products-list" class="container">
+</div>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="js/index.js"></script>
