@@ -82,10 +82,44 @@ class CartsManager {
       if (findProduct == -1) {
          console.log(`No se encontró el producto ID: ${pid} en el carrito 😨`);
          return 404;
-      } 
-      getCart[0].products.splice(findProduct, 1); //Elimino al producto
+      }
+      cartSelected.splice(findProduct, 1); //Elimino al producto
       await CartModel.updateOne({ id: cid }, { $set: { products: cartSelected } });
       console.log(`Producto ID: ${pid}, eliminado correctamente 😎`);
+      return 200;
+   }
+
+   static async updateProducts(productUpdated) {
+      const { cartID, productID, quantity } = productUpdated;
+
+      const getCart = await CartModel.find({ id: cartID });
+
+      if (!getCart) {
+         console.log('Carrito no encontrado.');
+         return (404);
+      }
+      const cartSelected = getCart[0].products; //Ubico al carrito
+      const findProduct = cartSelected.findIndex((cartSelectedFound) => cartSelectedFound.productID === productID); //Busco si ya estaba cargado el producto en el carrito
+      if (findProduct !== -1) {
+         await CartModel.updateOne({ id: cartID, 'products.productID': productID }, { $set: { 'products.$.quantity': quantity } });
+      } else {
+         console.log('Producto no encontrado. 😨');
+         return (404);
+      }
+      return 200;
+   }
+
+   static async deleteAllProducts(cid) {
+      const getCart = await CartModel.find({ id: cid });
+
+      if (!getCart) {
+         console.log('Carrito no encontrado. 😨');
+         return (404);
+      }
+      let cartSelected = getCart[0].products; //Ubico a los productos del carrito
+      cartSelected.splice(0, cartSelected.length); //Elimino todos los productos
+      await CartModel.updateOne({ id: cid }, { $set: { products: cartSelected } });
+      console.log(`Productos eliminados exitosamente del carrito ID: ${cid}`);
       return 200;
    }
 }
