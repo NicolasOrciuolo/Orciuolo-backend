@@ -1,4 +1,5 @@
 import CartModel from "./models/carts.model.js";
+import ProductModel from "./models/products.model.js";
 
 class CartsManager {
    static async addCart() {
@@ -58,7 +59,33 @@ class CartsManager {
          await CartModel.updateOne({ id: cartID }, { $set: { products: cartSelected } });
          console.log(`Producto ID: ${productID} agregado exitosamente al carrito: ${cartID}. Total: ${quantity}`);
       }
+      return 200;
+   }
 
+   static async deleteProduct(cid, pid) {
+      const getCart = await CartModel.find({ id: cid });
+      const getProduct = await ProductModel.find({ id: pid });
+
+      if (!getCart) {
+         console.log('Carrito no encontrado. 😨');
+         return (404);
+      }
+      if (!getProduct) {
+         console.log('Producto no encontrado. 😨');
+         return (404);
+      }
+
+      const cartSelected = getCart[0].products; //Ubico al carrito
+
+      const findProduct = cartSelected.findIndex((cartSelectedFound) => cartSelectedFound.productID === pid); //Busco si ya estaba cargado el producto en el carrito
+
+      if (findProduct == -1) {
+         console.log(`No se encontró el producto ID: ${pid} en el carrito 😨`);
+         return 404;
+      } 
+      getCart[0].products.splice(findProduct, 1); //Elimino al producto
+      await CartModel.updateOne({ id: cid }, { $set: { products: cartSelected } });
+      console.log(`Producto ID: ${pid}, eliminado correctamente 😎`);
       return 200;
    }
 }

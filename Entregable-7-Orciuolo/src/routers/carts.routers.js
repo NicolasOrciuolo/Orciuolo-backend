@@ -7,7 +7,7 @@ cartsRouter.post('/carts', async (req, res) => {
    const postStatus = await CartsManager.addCart();
 
    if (postStatus === 200) {
-      res.status(200).json({message: "Carrito generado exitosamente."});
+      res.status(200).json({ message: "Carrito generado exitosamente." });
    }
 })
 
@@ -29,12 +29,29 @@ cartsRouter.post('/carts/:cid/product/:pid', async (req, res) => {
    const productID = parseInt(pid);
    const quantity = body;
 
-   const postStatus = await CartsManager.addProductsInCart({cartID, productID, ...quantity });
+   const postStatus = await CartsManager.addProductsInCart({ cartID, productID, ...quantity });
 
    if (postStatus === 200) {
-      res.status(200).json({message: "Producto agregado exitosamente."});
+      res.status(200).json({ message: "Producto agregado exitosamente." });
+   } else {
+      res.status(404).json({ message: "Carrito no encontrado" });
+   }
+})
+
+cartsRouter.delete('/carts/:cid/products/:pid', async (req, res) => {
+   const { params } = req;
+   const cid = params.cid;
+   const pid = params.pid;
+
+   const cartID = parseInt(cid);
+   const productID = parseInt(pid);
+
+   const prueba = await CartsManager.deleteProduct(cartID, productID);
+   
+   if (prueba == 200){
+      res.status(prueba).json(`Producto ID: ${productID}, eliminado correctamente 😎`);
    } else{
-      res.status(404).json({message: "Carrito no encontrado"});
+      res.status(prueba).json(`No se encontró el producto ID: ${productID} en el carrito 😨`);
    }
 })
 

@@ -1,19 +1,25 @@
 import { Router } from 'express';
 import ProductManager from '../dao/mongo-productManager.js'
+import ProductModel from '../dao/models/products.model.js';
 import { v4 as uuidv4 } from 'uuid';
+import { buildResponsePaginated } from '../utils.js'
 
 const productsRouter = Router();
 
 productsRouter.get('/products', async (req, res) => {
-   const { query } = req;
-   const { limit } = query;
-   const products = await ProductManager.getProducts();
-   if (!limit) {
-      res.status(200).json(products);
-   } else {
-      const productsLimited = products.filter((product) => product.id <= parseInt(limit));
-      res.status(200).json(productsLimited);
+   const { limit = 10, page = 1, sort, query } = req.query;
+
+   const criteria = {};
+   const options = { limit, page };
+
+   if (sort) {
+      options.sort = { price: sort };
    }
+   if (query) {
+      criteria.category = query;
+   }
+   const result = await ProductModel.paginate(criteria, options);
+   res.status(200).json(buildResponsePaginated({ ...result, sort, query }));
 })
 
 productsRouter.get('/products/:pid', async (req, res) => {
