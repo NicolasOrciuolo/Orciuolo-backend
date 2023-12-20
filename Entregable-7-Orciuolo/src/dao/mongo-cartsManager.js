@@ -89,6 +89,20 @@ class CartsManager {
       return 200;
    }
 
+   static async updateCart(productUpdated) {
+      const { cartID, product } = productUpdated;
+
+      const getCart = await CartModel.find({ id: cartID });
+
+      if (!getCart) {
+         console.log('Carrito no encontrado.');
+         return (404);
+      }
+
+      await CartModel.updateOne({ id: cartID }, { $set: { products: product } });
+      return(200);
+   }
+
    static async updateProducts(productUpdated) {
       const { cartID, productID, quantity } = productUpdated;
 

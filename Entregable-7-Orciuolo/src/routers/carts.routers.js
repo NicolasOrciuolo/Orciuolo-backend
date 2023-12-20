@@ -55,6 +55,22 @@ cartsRouter.delete('/carts/:cid/products/:pid', async (req, res) => {
    }
 })
 
+cartsRouter.put('/carts/:cid', async (req, res) => {
+   const { body, params } = req;
+   const cid = params.cid;
+
+   const cartID = parseInt(cid);
+   const product = body;
+
+   const status = await CartsManager.updateCart({ cartID, product });
+
+   if (status === 200) {
+      res.status(200).json({ message: "Producto actualizado exitosamente." });
+   } else {
+      res.status(404).json({ message: "Carrito o producto no encontrado." });
+   }
+})
+
 cartsRouter.put('/carts/:cid/products/:pid', async (req, res) => {
    const { body, params } = req;
    const cid = params.cid;
