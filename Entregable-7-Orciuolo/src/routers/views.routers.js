@@ -19,4 +19,8 @@ viewsRouter.get('/chat', (req, res) => {
    res.render('chat', {title: 'Chat'});
 })
 
+viewsRouter.get('/products', (req, res) => {
+   res.render('products', {title: 'Products'});
+})
+
 export default viewsRouter;

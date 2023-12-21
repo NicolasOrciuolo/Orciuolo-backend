@@ -15,7 +15,7 @@ cartsRouter.get('/carts/:cid', async (req, res) => {
    const { params } = req;
    const cartId = params.cid;
 
-   const getCart = await CartsManager.getCartByID(parseInt(cartId));
+   const getCart = await CartsManager.getCartByID(cartId);
 
    res.status(200).json(getCart[0].products);
 })
@@ -25,12 +25,9 @@ cartsRouter.post('/carts/:cid/product/:pid', async (req, res) => {
    const cid = params.cid;
    const pid = params.pid;
 
-   const cartID = parseInt(cid);
-   const productID = parseInt(pid);
    const quantity = body;
 
-   const postStatus = await CartsManager.addProductsInCart({ cartID, productID, ...quantity });
-
+   const postStatus = await CartsManager.addProductsInCart({ cid, pid, ...quantity });
    if (postStatus === 200) {
       res.status(200).json({ message: "Producto agregado exitosamente." });
    } else {
@@ -43,15 +40,11 @@ cartsRouter.delete('/carts/:cid/products/:pid', async (req, res) => {
    const cid = params.cid;
    const pid = params.pid;
 
-   const cartID = parseInt(cid);
-   const productID = parseInt(pid);
-
-   const deletePID = await CartsManager.deleteProduct(cartID, productID);
-   
+   const deletePID = await CartsManager.deleteProduct(cid, pid);
    if (deletePID == 200){
-      res.status(deletePID).json(`Producto ID: ${productID}, eliminado correctamente 😎`);
+      res.status(deletePID).json(`Producto ID: ${pid}, eliminado correctamente 😎`);
    } else{
-      res.status(deletePID).json(`No se encontró el producto ID: ${productID} en el carrito 😨`);
+      res.status(deletePID).json(`No se encontró el producto ID: ${pid} en el carrito 😨`);
    }
 })
 
@@ -59,11 +52,9 @@ cartsRouter.put('/carts/:cid', async (req, res) => {
    const { body, params } = req;
    const cid = params.cid;
 
-   const cartID = parseInt(cid);
    const product = body;
 
-   const status = await CartsManager.updateCart({ cartID, product });
-
+   const status = await CartsManager.updateCart({ cid, product });
    if (status === 200) {
       res.status(200).json({ message: "Producto actualizado exitosamente." });
    } else {
@@ -76,11 +67,9 @@ cartsRouter.put('/carts/:cid/products/:pid', async (req, res) => {
    const cid = params.cid;
    const pid = params.pid;
 
-   const cartID = parseInt(cid);
-   const productID = parseInt(pid);
    const quantity = body;
 
-   const status = await CartsManager.updateProducts({ cartID, productID, ...quantity });
+   const status = await CartsManager.updateProducts({ cid, pid, ...quantity });
 
    if (status === 200) {
       res.status(200).json({ message: "Producto actualizado exitosamente." });
@@ -91,14 +80,13 @@ cartsRouter.put('/carts/:cid/products/:pid', async (req, res) => {
 
 cartsRouter.delete('/carts/:cid', async (req, res) => {
    const { params } = req;
-   const cartId = params.cid;
+   const cid = params.cid;
 
-   const deleteProducts = await CartsManager.deleteAllProducts(parseInt(cartId));
-
+   const deleteProducts = await CartsManager.deleteAllProducts(cid);
    if (deleteProducts == 200){
-      res.status(deleteProducts).json(`Productos eliminados correctamente del carrito ID: ${cartId} 😎`);
+      res.status(deleteProducts).json(`Productos eliminados correctamente del carrito ID: ${cid} 😎`);
    } else{
-      res.status(deleteProducts).json(`No se encontró el carrito ID: ${cartId} 😨`);
+      res.status(deleteProducts).json(`No se encontró el carrito ID: ${cid} 😨`);
    }
 })
 
