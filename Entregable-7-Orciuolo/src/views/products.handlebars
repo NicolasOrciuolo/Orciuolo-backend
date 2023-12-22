@@ -1,0 +1,30 @@
+<h1>Lista de Productos</h1>
+
+{{#each payload}}
+<article>
+   <header>
+      <p>{{this.title}}</p>
+   </header>
+   <p>{{this.description}}</p>
+   <p>{{this.price}}</p>
+   <p>{{this.category}}</p>
+   <p>{{this.code}}</p>
+   <p>{{this.stock}}</p>
+   <p>{{this.statusP}}</p>
+
+   <form id="addCart" data-id="{{this._id}}">
+      <input type="number" id="quantityIn{{this._id}}" placeholder="Introduzca cantidad" min="1">
+      <button type="submit">Agregar</button>
+   </form>
+</article>
+{{/each}}
+
+<div>
+   <p>Pagina actual: {{this.page}}</p>
+   <a href="{{this.prevLink}}" role="button" {{#unless hasPrevPage}}disabled{{/unless}}>Página anterior</a>
+   <a href="{{this.nextLink}}" role="button" {{#unless hasNextPage}}disabled{{/unless}}>Página siguiente</a>
+</div>
+</article>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="js/products.js"></script>

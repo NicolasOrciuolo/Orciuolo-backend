@@ -1,14 +1,14 @@
 (function () {
 
-const socket = io();
+   const socket = io();
 
-socket.on('getProducts', (products) => {
-   const productList = document.getElementById('products-list');
-   productList.innerHTML = "";
+   socket.on('getProducts', (products) => {
+      const productList = document.getElementById('products-list');
+      productList.innerHTML = "";
 
-   products.forEach(product => {
-      const productCard = document.createElement("div")
-      productCard.innerHTML = `
+      products.forEach(product => {
+         const productCard = document.createElement("div")
+         productCard.innerHTML = `
          <p><strong>Title: </strong> ${product.title}</p>
          <p><strong>Description: </strong> ${product.description}</p>
          <p><strong>Code: </strong> ${product.code}</p>
@@ -19,44 +19,60 @@ socket.on('getProducts', (products) => {
          <button id="delete-product${product.id}" class="contrast">Eliminar Producto</button>
          <hr>       
          `;
-      productList.appendChild(productCard);
-   });
-
-   products.forEach(product => {
-      const deleteProduct = document.getElementById(`delete-product${product.id}`);
-      deleteProduct.addEventListener('click', () => {
-         socket.emit('deleteProduct', product.id)
+         productList.appendChild(productCard);
       });
-   });
-})
 
-const addProduct = document.getElementById('add-product');
-addProduct.addEventListener('click', (event) => {
-   event.preventDefault();
+      products.forEach(product => {
+         const deleteProduct = document.getElementById(`delete-product${product.id}`);
+         deleteProduct.addEventListener('click', () => {
+            socket.emit('deleteProduct', product.id)
+         });
+      });
+   })
 
-   const title = document.getElementById('input-title').value;
-   const description = document.getElementById('input-description').value;
-   const code = document.getElementById('input-code').value;
-   const price = document.getElementById('input-price').value;
-   const status = document.getElementById('input-status').value;
-   const stock = document.getElementById('input-stock').value;
-   const category = document.getElementById('input-category').value;
-   const thumbnail = document.getElementById('input-thumbnail').value;
+   const addProduct = document.getElementById('add-product');
+   addProduct.addEventListener('click', (event) => {
+      event.preventDefault();
 
-   const newProduct = {
-      title,
-      description,
-      code,
-      price,
-      status,
-      stock,
-      category,
-      thumbnail
-   };
+      const title = document.getElementById('input-title').value;
+      const description = document.getElementById('input-description').value;
+      const code = document.getElementById('input-code').value;
+      const price = document.getElementById('input-price').value;
+      const status = document.getElementById('input-status').value;
+      const stock = document.getElementById('input-stock').value;
+      const category = document.getElementById('input-category').value;
+      const thumbnail = document.getElementById('input-thumbnail').value;
 
-   socket.emit('addProduct', newProduct);
-   console.log('👍 Producto enviado desde el Cliente: ', newProduct)
-})
+      const newProduct = {
+         title,
+         description,
+         code,
+         price,
+         status,
+         stock,
+         category,
+         thumbnail
+      };
+
+      socket.emit('addProduct', newProduct);
+      console.log('👍 Producto enviado desde el Cliente: ', newProduct)
+   })
+
+   const addProductInCart = document.getElementById('add-productcart');
+   addProductInCart.addEventListener('click', (event) => {
+      event.preventDefault();
+      console.log('llegue')
+
+      const product = '656becb28aa813f57807d463';
+
+
+
+      socket.emit('addProduct', product);
+      console.log('👍 Producto enviado desde el Cliente: ', product)
+
+      // const title = document.getElementById('input-title').value;
+
+   })
 
 })();
 

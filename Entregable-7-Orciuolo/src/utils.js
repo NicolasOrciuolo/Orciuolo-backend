@@ -4,7 +4,7 @@ import url from 'url';
 const __filename = url.fileURLToPath(import.meta.url);
 export const __dirname = path.dirname(__filename);
 
-export const URL_BASE = 'http://localhost:8080/api';
+export const URL_BASE = 'http://localhost:8080';
 
 export const buildResponsePaginated = (data, baseUrl = URL_BASE) => {
    return {
@@ -25,8 +25,8 @@ export const buildResponsePaginated = (data, baseUrl = URL_BASE) => {
       // hasNextPage: Indicador para saber si la página siguiente existe.
       hasNextPage: data.hasNextPage,
       // prevLink: Link directo a la página previa (null si hasPrevPage=false)
-      prevLink: data.hasPrevPage ? `${baseUrl}/students?limit=${data.limit}&page=${data.prevPage}` : null,
+      prevLink: data.hasPrevPage ? `${baseUrl}/products?limit=${data.limit}&page=${data.prevPage}` : null,
       // nextLink: Link directo a la página siguiente (null si hasNextPage=false)
-      nextLink: data.hasNextPage ? `${baseUrl}/students?limit=${data.limit}&page=${data.nextPage}` : null,
+      nextLink: data.hasNextPage ? `${baseUrl}/products?limit=${data.limit}&page=${data.nextPage}` : null,
    }
 }

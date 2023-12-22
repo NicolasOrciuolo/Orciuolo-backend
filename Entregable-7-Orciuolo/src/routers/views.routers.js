@@ -1,6 +1,8 @@
 import { Router } from 'express';
-// import ProductManager from '../dao/productManager.js';
+import ProductModel from '../dao/models/products.model.js';
 import ProductManager from '../dao/mongo-productManager.js';
+import { buildResponsePaginated } from '../utils.js'
+
 
 const viewsRouter = Router();
 
@@ -19,8 +21,21 @@ viewsRouter.get('/chat', (req, res) => {
    res.render('chat', {title: 'Chat'});
 })
 
-viewsRouter.get('/products', (req, res) => {
-   res.render('products', {title: 'Products'});
+viewsRouter.get('/products', async (req, res) => {
+   const { limit = 10, page = 1, sort, query } = req.query;
+
+   const criteria = {};
+   const options = { limit, page };
+
+   if (sort) {
+      options.sort = { price: sort };
+   }
+   if (query) {
+      criteria.category = query;
+   }
+   const result = await ProductModel.paginate(criteria, options);
+   const data = buildResponsePaginated({ ...result, sort, query });
+   res.render('products', {...data, title:'Productos'})
 })
 
 export default viewsRouter;

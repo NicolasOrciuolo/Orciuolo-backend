@@ -1,5 +1,6 @@
 import { Server } from 'socket.io'
 import ProductManager from './dao/mongo-productManager.js'
+import CartsManager from './dao/mongo-cartsManager.js';
 import MessageModel from './dao/models/message.model.js';
 
 export const initSocket = (httpServer) => {
@@ -24,6 +25,7 @@ export const initSocket = (httpServer) => {
          }
       });
 
+
       socketClient.on('deleteProduct', async (productId) => {
          const deleteStatus = await ProductManager.deleteProduct(parseInt(productId));
 
@@ -46,9 +48,27 @@ export const initSocket = (httpServer) => {
          socketClient.emit('update-messages', messages);
       })
 
+      //AGREGAR PRODUCTOS AL CRRITO
+      socketClient.on('addProductInCart', async (data) => {
+         const { pid, quantity } = data;
+         const cid = '6583995bf0633ab709d9b5a0';
+
+         const postStatus = await CartsManager.addProductsInCart({ cid, pid, quantity });
+
+         if (postStatus === 201) {
+            socketClient.emit('productAdded', pid);
+            console.log(`Producto: ${pid} agregado al carrito ${cid}✔`);
+         } else {
+            console.error('No se ha podido agregar el producto ❌');
+         }
+      });
+
+
       socketClient.on('disconnect', () => {
          console.log(`Cliente socket desconectado: ${socketClient.id} 🖐`)
       });
+
+
    })
 
 }

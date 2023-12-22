@@ -34,16 +34,15 @@ class CartsManager {
          return (404);
       }
 
-      const cartSelected = getCart[0].products; //Ubico al carrito
+      const cartSelected = getCart.products; //Ubico al carrito
 
-      const findProduct = cartSelected.findIndex((cartSelectedFound) => cartSelectedFound.prodID === pid); //Busco si ya estaba cargado el producto en el carrito
+      const findProduct = cartSelected.findIndex((cartSelectedFound) => cartSelectedFound.prodID.toJSON() === pid);//Busco si ya estaba cargado el producto en el carrito
 
       if (findProduct !== -1) {
          const newQuantity = cartSelected[findProduct].quantity + quantity;
          cartSelected[findProduct].quantity = newQuantity;
          await CartModel.updateOne({ _id: cid, 'products.prodID': pid }, { $set: { 'products.$.quantity': newQuantity } });
          console.log(`Producto ID: ${pid} actualizado exitosamente al carrito: ${cid}. Total: ${newQuantity}`);
-
       } else {
          const newProduct = {
             prodID: pid,
@@ -53,7 +52,7 @@ class CartsManager {
          await CartModel.updateOne({ _id: cid }, { $set: { products: cartSelected } });
          console.log(`Producto ID: ${pid} agregado exitosamente al carrito: ${cid}. Total: ${quantity}`);
       }
-      return 200;
+      return 201;
    }
 
    static async deleteProduct(cid, pid) {
