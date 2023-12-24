@@ -25,7 +25,6 @@ export const initSocket = (httpServer) => {
          }
       });
 
-
       socketClient.on('deleteProduct', async (productId) => {
          const deleteStatus = await ProductManager.deleteProduct(parseInt(productId));
 
@@ -48,7 +47,7 @@ export const initSocket = (httpServer) => {
          socketClient.emit('update-messages', messages);
       })
 
-      //AGREGAR PRODUCTOS AL CRRITO
+      //AGREGAR PRODUCTOS AL CARRITO
       socketClient.on('addProductInCart', async (data) => {
          const { pid, quantity } = data;
          const cid = '6583995bf0633ab709d9b5a0';
@@ -63,11 +62,9 @@ export const initSocket = (httpServer) => {
          }
       });
 
-
       socketClient.on('disconnect', () => {
          console.log(`Cliente socket desconectado: ${socketClient.id} 🖐`)
       });
-
 
    })
 

@@ -58,21 +58,16 @@
       console.log('👍 Producto enviado desde el Cliente: ', newProduct)
    })
 
-   const addProductInCart = document.getElementById('add-productcart');
-   addProductInCart.addEventListener('click', (event) => {
-      event.preventDefault();
-      console.log('llegue')
+   // const addProductInCart = document.getElementById('add-productcart');
+   // addProductInCart.addEventListener('click', (event) => {
+   //    event.preventDefault();
 
-      const product = '656becb28aa813f57807d463';
+   //    const product = '656becb28aa813f57807d463';
 
+   //    socket.emit('addProduct', product);
+   //    console.log('👍 Producto enviado desde el Cliente: ', product)
 
-
-      socket.emit('addProduct', product);
-      console.log('👍 Producto enviado desde el Cliente: ', product)
-
-      // const title = document.getElementById('input-title').value;
-
-   })
+   // })
 
 })();
 

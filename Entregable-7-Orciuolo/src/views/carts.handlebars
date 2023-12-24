@@ -1,0 +1,28 @@
+<h1>Carrito de compras</h1>
+
+<article>
+   <table>
+      <tr>
+         <th><strong>Producto</strong></th>
+         <th><strong>Descripción</strong></th>
+         <th><strong>Cantidad</strong></th>
+         <th><strong>Precio Unitario</strong></th>
+         <th><strong>Precio Total</strong></th>
+      <tr>
+         <tbody>
+            {{#each result}}
+            <tr>
+               <td id="titulo">{{this.title}}</td>
+               <td id="descripcion">{{this.description}}</td>
+               <td id="cantidad">{{this.quantity}}</td>
+               <td id="precio unitario">${{this.price}}</td>
+               <td id="precio total">${{this.total}}</td>
+            </tr>
+            {{/each}}
+         </tbody>
+      </tr>
+   </table>
+
+   <a href="http://localhost:8080/products">Volver al menú de productos</a>
+
+</article>

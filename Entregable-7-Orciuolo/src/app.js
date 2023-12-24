@@ -23,7 +23,7 @@ app.use('/api', productsRouter, cartsRouter);
 app.use((error, req, res, next) => {
    const message = `Ha ocurrido un error desconocido 😨: ,${error.message}`;
    console.error(message);
-   res.status(500).json({message});
+   res.status(500).json({ message });
 });
 
 export default app;
