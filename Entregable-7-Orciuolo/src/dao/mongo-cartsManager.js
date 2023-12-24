@@ -57,7 +57,7 @@ class CartsManager {
 
    static async deleteProduct(cid, pid) {
       const getCart = await CartModel.find({ _id: cid });
-      const getProduct = await ProductModel.find({ id: pid });
+      const getProduct = await ProductModel.find({ _id: pid });
 
       if (!getCart) {
          console.log('Carrito no encontrado. 😨');
@@ -70,7 +70,9 @@ class CartsManager {
 
       const cartSelected = getCart[0].products; //Ubico al carrito
 
-      const findProduct = cartSelected.findIndex((cartSelectedFound) => cartSelectedFound.prodID === pid); //Busco si ya estaba cargado el producto en el carrito
+      const findProduct = cartSelected.findIndex((cartSelectedFound) => cartSelectedFound.prodID.toJSON() === pid);//Busco si ya estaba cargado el producto en el carrito
+
+      console.log('findProduct', findProduct)
 
       if (findProduct == -1) {
          console.log(`No se encontró el producto ID: ${pid} en el carrito 😨`);
@@ -97,7 +99,7 @@ class CartsManager {
    }
 
    static async updateProducts(productUpdated) {
-      const { cid, productID, quantity } = productUpdated;
+      const { cid, pid, quantity } = productUpdated;
 
       const getCart = await CartModel.find({ _id: cid });
 
@@ -106,7 +108,7 @@ class CartsManager {
          return (404);
       }
       const cartSelected = getCart[0].products; //Ubico al carrito
-      const findProduct = cartSelected.findIndex((cartSelectedFound) => cartSelectedFound.prodID === pid); //Busco si ya estaba cargado el producto en el carrito
+      const findProduct = cartSelected.findIndex((cartSelectedFound) => cartSelectedFound.prodID.toJSON() === pid); //Busco si ya estaba cargado el producto en el carrito
       if (findProduct !== -1) {
          await CartModel.updateOne({ _id: cid, 'products.prodID': pid }, { $set: { 'products.$.quantity': quantity } });
       } else {
