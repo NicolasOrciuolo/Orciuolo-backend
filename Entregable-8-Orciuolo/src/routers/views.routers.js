@@ -11,19 +11,31 @@ const viewsRouter = Router();
 // const producto = new ProductManager('./products.json');
 
 viewsRouter.get('/', async (req, res) => {
+   if (!req.session.user) {
+      return res.redirect('/login');
+   }
    const products = await ProductManager.getProducts();
    res.render('home', { products: products.map(product => product.toJSON()), title: "Productos" });
 });
 
 viewsRouter.get('/realtimeproducts', (req, res) => {
+   if (!req.session.user) {
+      return res.redirect('/login');
+   }
    res.render('realTimeProducts', { title: 'Real Time Products' });
 });
 
 viewsRouter.get('/chat', (req, res) => {
+   if (!req.session.user) {
+      return res.redirect('/login');
+   }
    res.render('chat', { title: 'Chat' });
 })
 
 viewsRouter.get('/products', async (req, res) => {
+   if (!req.session.user) {
+      return res.redirect('/login');
+   }
    const { limit = 10, page = 1, sort, query } = req.query;
 
    const criteria = {};
@@ -41,6 +53,9 @@ viewsRouter.get('/products', async (req, res) => {
 })
 
 viewsRouter.get('/carts/:cid', async (req, res) => {
+   if (!req.session.user) {
+      return res.redirect('/login');
+   }
    const { cid } = req.params;
 
    const getCart = await CartModel.find({ _id: cid }).populate('products.prodID');
@@ -49,6 +64,14 @@ viewsRouter.get('/carts/:cid', async (req, res) => {
 
    res.render('carts', { result, title: 'Carrito de Compras' });
 
+});
+
+viewsRouter.get('/login', (req, res) => {
+   res.render('login', { title: 'Login' });
+});
+
+viewsRouter.get('/register', (req, res) => {
+   res.render('register', { title: 'Registro' });
 });
 
 export default viewsRouter;
