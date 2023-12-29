@@ -1,3 +1,5 @@
+(function (user) {
+
 const socket = io();
 
 document.addEventListener('submit', function (event) {
@@ -16,3 +18,5 @@ document.addEventListener('submit', function (event) {
    console.log('👍 Producto enviado desde el Cliente: ', data.toJSON())
 
 });
+
+})();

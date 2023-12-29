@@ -4,6 +4,7 @@ import CartModel from "../dao/models/carts.model.js";
 import ProductManager from '../dao/mongo-productManager.js';
 import CartsManager from '../dao/mongo-cartsManager.js';
 import { buildResponsePaginated } from '../utils.js'
+import Swal from 'sweetalert2'
 
 
 const viewsRouter = Router();
@@ -22,7 +23,7 @@ viewsRouter.get('/realtimeproducts', (req, res) => {
    if (!req.session.user) {
       return res.redirect('/login');
    }
-   res.render('realTimeProducts', { title: 'Real Time Products' });
+   res.render('realTimeProducts', { user: req.session.user.first_name, title: 'Real Time Products' });
 });
 
 viewsRouter.get('/chat', (req, res) => {
@@ -36,6 +37,7 @@ viewsRouter.get('/products', async (req, res) => {
    if (!req.session.user) {
       return res.redirect('/login');
    }
+
    const { limit = 10, page = 1, sort, query } = req.query;
 
    const criteria = {};
@@ -49,7 +51,7 @@ viewsRouter.get('/products', async (req, res) => {
    }
    const result = await ProductModel.paginate(criteria, options);
    const data = buildResponsePaginated({ ...result, sort, query });
-   res.render('products', { ...data, title: 'Productos' })
+   res.render('products', { ...data, user: req.session.user.first_name, title: 'Productos' })
 })
 
 viewsRouter.get('/carts/:cid', async (req, res) => {

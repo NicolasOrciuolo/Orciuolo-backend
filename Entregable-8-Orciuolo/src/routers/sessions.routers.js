@@ -28,9 +28,15 @@ sessionsRouter.post('/sessions/login', async (req, res) => {
       first_name,
       last_name,
       email,
-      age
+      age,
+      role: (email === 'adminCoder@coder.com' && password === 'adminCod3r123') ? 'admin' : 'user'
    };
-   res.redirect('/products');
+
+   if (req.session.user.role === 'admin') {
+      res.redirect('/realTimeProducts');
+   } else {
+      res.redirect('/products');
+   }
 });
 
 sessionsRouter.post('/sessions/register', async (req, res) => {
@@ -56,7 +62,7 @@ sessionsRouter.post('/sessions/register', async (req, res) => {
 
 sessionsRouter.get('/sessions/logout', async (req, res) => {
    req.session.destroy((error) => {
-      if (error){
+      if (error) {
          return res.render('error', { title: '', messageError: error.message })
       }
    });

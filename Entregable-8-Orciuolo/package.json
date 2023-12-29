@@ -33,6 +33,7 @@
     "mongoose-paginate-v2": "^1.7.4",
     "nodemon": "^3.0.1",
     "socket.io": "^4.7.2",
+    "sweetalert2": "^11.10.2",
     "uuid": "^9.0.1"
   }
 }
