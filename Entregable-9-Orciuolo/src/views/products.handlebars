@@ -1,0 +1,57 @@
+<h5>Bienvenido {{this.user}}!</h5>
+
+<h1>Lista de Productos</h1>
+
+<div class="grid">
+   <a href="http://localhost:8080/carts/6583995bf0633ab709d9b5a0">Ir al carrito</a>
+   <a href="http://localhost:8080/sessions/logout">Cerrar sesión</a>
+   <div></div>
+   <div></div>
+</div>
+
+<article>
+   <table>
+      <tr>
+         <th><strong>Titulo</strong></th>
+         <th><strong>Descripción</strong></th>
+         <th><strong>Categoria</strong></th>
+         <th><strong>Stock</strong></th>
+         <th><strong>Precio</strong></th>
+         <th><strong>Cantidad</strong></th>
+         <th><strong>Agregar</strong></th>
+      <tr>
+         <tbody>
+            {{#each payload}}
+            <tr>
+               <td><strong>{{this.title}}</strong></td>
+               <td>{{this.description}}</td>
+               <td>{{this.category}}</td>
+               <td>{{this.stock}}</td>
+               <td>${{this.price}}</td>
+               <td>
+                  <form id="addCart" data-id="{{this._id}}">
+                     <input type="number" id="quantityIn{{this._id}}" min="1">
+                  </form>
+               </td>
+               <td>
+                  <form id="addCart" data-id="{{this._id}}">
+                     <button type="submit">Agregar</button>
+                  </form>
+               </td>
+            </tr>
+            {{/each}}
+         </tbody>
+      </tr>
+   </table>
+</article>
+
+<div>
+   <p>Pagina actual: {{this.page}}</p>
+   <a href="{{this.prevLink}}" role="button" {{#unless hasPrevPage}}disabled{{/unless}}>Página anterior</a>
+   <a href="{{this.nextLink}}" role="button" {{#unless hasNextPage}}disabled{{/unless}}>Página siguiente</a>
+</div>
+</article>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="/socket.io/socket.io.js"></script>
+<script src="js/products.js"></script>
