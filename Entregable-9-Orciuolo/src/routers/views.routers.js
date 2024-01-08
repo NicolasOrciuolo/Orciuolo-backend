@@ -34,7 +34,7 @@ viewsRouter.get('/chat', (req, res) => {
 })
 
 viewsRouter.get('/products', async (req, res) => {
-   if (!req.session.user) {
+   if (!req.user) {
       return res.redirect('/login');
    }
 
@@ -51,11 +51,11 @@ viewsRouter.get('/products', async (req, res) => {
    }
    const result = await ProductModel.paginate(criteria, options);
    const data = buildResponsePaginated({ ...result, sort, query });
-   res.render('products', { ...data, user: req.session.user.first_name, title: 'Productos' })
+   res.render('products', { ...data, user: req.user.first_name, title: 'Productos' })
 })
 
 viewsRouter.get('/carts/:cid', async (req, res) => {
-   if (!req.session.user) {
+   if (!req.user) {
       return res.redirect('/login');
    }
    const { cid } = req.params;
