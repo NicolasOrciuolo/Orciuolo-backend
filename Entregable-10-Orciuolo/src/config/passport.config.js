@@ -70,15 +70,6 @@ export const init = () => {
       done(null, newUser);
    }))
 
-   /*    passport.serializeUser((user, done) => {
-         done(null, user._id);
-      });
-   
-      passport.deserializeUser(async (uid, done) => {
-         const user = await userModel.findById(uid);
-         done(null, user);
-      }); */
-
    const cookieExtractor = (req) => {
       let token = null;
       if (req && req.cookies) {
