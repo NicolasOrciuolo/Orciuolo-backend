@@ -66,7 +66,10 @@ authRouter.post('/auth/login', async (req, res) => {
 })
 
 
-authRouter.get('/auth/current', auth, (req, res) => {
+authRouter.get('/auth/current', passport.authenticate('jwt', { session: false }), (req, res) => {
+   if (!req.user) {
+      return res.status(401).json({ message: 'No estas autenticado.' });
+   }
    res.status(200).json(req.user);
 })
 
