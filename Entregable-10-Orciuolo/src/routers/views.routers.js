@@ -5,16 +5,15 @@ import ProductManager from '../dao/mongo-productManager.js';
 import CartsManager from '../dao/mongo-cartsManager.js';
 import { buildResponsePaginated } from '../utils.js'
 import Swal from 'sweetalert2'
+import { auth } from '../utils.js'
+
 
 
 const viewsRouter = Router();
 
 // const producto = new ProductManager('./products.json');
 
-viewsRouter.get('/', async (req, res) => {
-   if (!req.session.user) {
-      return res.redirect('/login');
-   }
+viewsRouter.get('/', auth, async (req, res) => {
    const products = await ProductManager.getProducts();
    res.render('home', { products: products.map(product => product.toJSON()), title: "Productos" });
 });
@@ -33,10 +32,9 @@ viewsRouter.get('/chat', (req, res) => {
    res.render('chat', { title: 'Chat' });
 })
 
-viewsRouter.get('/products', async (req, res) => {
-   if (!req.user) {
-      return res.redirect('/login');
-   }
+
+
+viewsRouter.get('/products', auth, async (req, res) => {
 
    const { limit = 10, page = 1, sort, query } = req.query;
 

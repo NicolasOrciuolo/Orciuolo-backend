@@ -1,8 +1,9 @@
 import passport from 'passport';
 import { Strategy as GithubStrategy } from 'passport-github2';
 import { Strategy as LocalStrategy } from 'passport-local';
+import { Strategy as JwtStrategy, ExtractJwt } from 'passport-jwt';
 import userModel from '../dao/models/user.model.js';
-import { createHash, isValidPassword } from '../utils.js';
+import { createHash, isValidPassword, JWT_SECRET } from '../utils.js';
 
 export const init = () => {
    const registerOptions = {
@@ -48,7 +49,7 @@ export const init = () => {
    const githubOptions = {
       clientID: 'Iv1.ebbea299d3594f48',
       clientSecret: '84e9f4a8ec820d3ee3888d2f507ff8786dd433a4',
-      callbackURL: 'http://localhost:8080/sessions/github/callback'
+      callbackURL: 'http://localhost:8080/auth/github/callback'
    }
    passport.use('github', new GithubStrategy(githubOptions, async (accesstoken, refreshToken, profile, done) => {
       const email = profile._json.email;
@@ -69,12 +70,31 @@ export const init = () => {
       done(null, newUser);
    }))
 
-   passport.serializeUser((user, done) => {
-      done(null, user._id);
-   });
+   /*    passport.serializeUser((user, done) => {
+         done(null, user._id);
+      });
+   
+      passport.deserializeUser(async (uid, done) => {
+         const user = await userModel.findById(uid);
+         done(null, user);
+      }); */
 
-   passport.deserializeUser(async (uid, done) => {
-      const user = await userModel.findById(uid);
-      done(null, user);
-   });
+   const cookieExtractor = (req) => {
+      let token = null;
+      if (req && req.cookies) {
+         token = req.cookies['access_token'];
+      }
+      console.log('token', token);
+      return token;
+   }
+
+   passport.use('jwt', new JwtStrategy({
+      secretOrKey: JWT_SECRET,
+      jwtFromRequest: ExtractJwt.fromExtractors([cookieExtractor]),
+   }, (payload, done) => {
+      console.log('payload', payload);
+      done(null, payload);
+   }))
+
+
 }

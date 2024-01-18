@@ -4,30 +4,21 @@ import handlebars from 'express-handlebars';
 import sessions from 'express-session';
 import MongoStore from 'connect-mongo';
 import passport from 'passport';
+import cookieParse from 'cookie-parser';
 
-import { URI } from './db/mongodb.js'
 import { init as initPassport } from './config/passport.config.js'
 
 import productsRouter from './routers/products.routers.js';
 import cartsRouter from './routers/carts.routers.js';
 import viewsRouter from './routers/views.routers.js';
-import sessionsRouter from './routers/sessions.routers.js';
+import authRouter from './routers/auth.router.js';
 
-const SESSION_SECRET = '$7qdkC5bd*5xas';
+const COOKIE_SECRET = 'MB!0FF6EXG';
 
 const app = express();
 import { __dirname } from './utils.js';
 
-app.use(sessions({
-   store: MongoStore.create({
-      mongoUrl: URI,
-      mongoOptions: {},
-      ttl: 150
-   }),
-   secret: SESSION_SECRET,
-   resave: true,
-   saveUninitialized: true,
-}));
+app.use(cookieParse());
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -39,9 +30,8 @@ app.set('view engine', 'handlebars');
 
 initPassport();
 app.use(passport.initialize());
-app.use(passport.session());
 
-app.use('/', viewsRouter, sessionsRouter);
+app.use('/', viewsRouter, authRouter);
 app.use('/api', productsRouter, cartsRouter);
 
 app.use((error, req, res, next) => {

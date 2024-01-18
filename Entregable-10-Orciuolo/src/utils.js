@@ -1,8 +1,12 @@
 import path from 'path';
 import url from 'url';
 import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 
 const __filename = url.fileURLToPath(import.meta.url);
+
+export const JWT_SECRET = 'vBqt82r)JCrnX~._2*un'
+
 export const __dirname = path.dirname(__filename);
 
 export const URL_BASE = 'http://localhost:8080';
@@ -34,5 +38,46 @@ export const buildResponsePaginated = (data, baseUrl = URL_BASE) => {
 
 export const createHash = password => bcrypt.hashSync(password, bcrypt.genSaltSync(10));
 
-export const isValidPassword = (password, user) => bcrypt.compareSync(password, user);
+export const isValidPassword = (password, user) => bcrypt.compareSync(password, user.password);
 
+export const createToken = (user) => {
+   const {
+      _id,
+      first_name,
+      last_name,
+      email,
+   } = user;
+
+   const payload = {
+      id: _id,
+      first_name,
+      last_name,
+      email
+   }
+
+   return jwt.sign(payload, JWT_SECRET, { expiresIn: '30m' });
+}
+
+export const verifyToken = (token) => {
+   return new Promise((resolve, reject) => {
+      jwt.verify(token, JWT_SECRET, (error, payload) => {
+         if (error) {
+            return reject(error);
+         }
+         resolve(payload);
+      })
+   })
+}
+
+export const auth = async (req, res, next) => {
+   const { token } = req.cookies;
+   if (!token) {
+      return res.status(401).json({ message: 'No deberías estar acá' })
+   }
+   const payload = await verifyToken(token);
+   if (!payload) {
+      return res.status(401).json({ message: 'No deberías estar acá' })
+   }
+   req.user = payload;
+   next();
+}
