@@ -1,8 +1,9 @@
 import { Router } from 'express';
-import ProductManager from '../dao/mongo-productManager.js'
 import ProductModel from '../dao/models/products.model.js';
 import { v4 as uuidv4 } from 'uuid';
 import { buildResponsePaginated } from '../utils.js'
+
+import ProductController from '../controllers/products.controller.js';
 
 const productsRouter = Router();
 
@@ -26,7 +27,7 @@ productsRouter.get('/products/:pid', async (req, res) => {
    const { params } = req;
    const productId = params.pid;
 
-   const products = await ProductManager.getProducts();
+   const products = await ProductController.getProducts();
 
    const position = products.findIndex((findId) => {
       return findId.id === parseInt(productId)
@@ -47,7 +48,7 @@ productsRouter.post('/products', async (req, res) => {
       code: uuidv4(),
       status: true
    }
-   const postStatus = await ProductManager.addProduct(newProduct);
+   const postStatus = await ProductController.addProduct(newProduct);
 
    if (postStatus === 201) {
       res.status(201).json(newProduct);
@@ -60,7 +61,7 @@ productsRouter.put('/products/:pid', async (req, res) => {
    const { body, params } = req;
    const id = params.pid;
 
-   const putStatus = await ProductManager.updateProduct(parseInt(id), body);
+   const putStatus = await ProductController.updateProduct(parseInt(id), body);
 
    if (putStatus === 200) {
       res.status(200).json({ message: "Producto actualizado exitosamente." });
@@ -75,7 +76,7 @@ productsRouter.delete('/products/:pid', async (req, res) => {
    const { params } = req;
    const pid = params.pid;
 
-   const deleteStatus = await ProductManager.deleteProduct(pid);
+   const deleteStatus = await ProductController.deleteProduct(pid);
 
    if (deleteStatus === 200) {
       res.status(200).json({ message: "Producto eliminado exitosamente." });

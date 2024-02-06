@@ -1,14 +1,11 @@
 import { Router } from 'express';
 import ProductModel from '../dao/models/products.model.js';
 import CartModel from "../dao/models/carts.model.js";
-import ProductManager from '../dao/mongo-productManager.js';
-import CartsManager from '../dao/mongo-cartsManager.js';
 import { buildResponsePaginated } from '../utils.js'
-import Swal from 'sweetalert2'
 import { auth } from '../utils.js'
 import passport from 'passport';
 
-
+import ProductController from '../controllers/products.controller.js';
 
 
 const viewsRouter = Router();
@@ -16,7 +13,7 @@ const viewsRouter = Router();
 // const producto = new ProductManager('./products.json');
 
 viewsRouter.get('/', auth, async (req, res) => {
-   const products = await ProductManager.getProducts();
+   const products = await ProductController.getProducts();
    res.render('home', { products: products.map(product => product.toJSON()), title: "Productos" });
 });
 
