@@ -31,8 +31,6 @@ viewsRouter.get('/chat', (req, res) => {
    res.render('chat', { title: 'Chat' });
 })
 
-
-
 viewsRouter.get('/products', auth, async (req, res) => {
 
    const { limit = 10, page = 1, sort, query } = req.query;
